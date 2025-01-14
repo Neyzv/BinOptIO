@@ -23,9 +23,7 @@ public abstract class BinaryReader
 
     public BinaryReader(ReadOnlySequence<byte> buffer)
     {
-        if (buffer.IsSingleSegment)
-            _buffer = buffer.First;
-        else if (SequenceMarshal.TryGetReadOnlyMemory(buffer, out var memory))
+        if (SequenceMarshal.TryGetReadOnlyMemory(buffer, out var memory))
             _buffer = memory;
         else
             _buffer = buffer.ToArray();
