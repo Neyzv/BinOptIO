@@ -28,7 +28,7 @@ public abstract class BinaryReader
         else if (SequenceMarshal.TryGetReadOnlyMemory(buffer, out var memory))
             _buffer = memory;
         else
-            _buffer= buffer.ToArray();
+            _buffer = buffer.ToArray();
     }
 
     public BinaryReader(Stream stream)
