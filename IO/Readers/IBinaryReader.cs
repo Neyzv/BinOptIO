@@ -30,7 +30,7 @@ public interface IBinaryReader
 
     double ReadDouble();
 
-    string ReadChars(int count);
+    string ReadUtfBytes(int count);
 
     string ReadUtfBytes();
 

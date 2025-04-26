@@ -18,18 +18,15 @@ public abstract class BinaryReader
     public int BytesAvailable =>
         Length - Position;
 
-    public BinaryReader(ReadOnlyMemory<byte> buffer) =>
+    protected BinaryReader(ReadOnlyMemory<byte> buffer) =>
         _buffer = buffer;
 
-    public BinaryReader(ReadOnlySequence<byte> buffer)
+    protected BinaryReader(ReadOnlySequence<byte> buffer)
     {
-        if (SequenceMarshal.TryGetReadOnlyMemory(buffer, out var memory))
-            _buffer = memory;
-        else
-            _buffer = buffer.ToArray();
+        _buffer = SequenceMarshal.TryGetReadOnlyMemory(buffer, out var memory) ? memory : buffer.ToArray();
     }
 
-    public BinaryReader(Stream stream)
+    protected BinaryReader(Stream stream)
     {
         if (stream is not MemoryStream ms)
         {
@@ -65,11 +62,11 @@ public abstract class BinaryReader
 
     public abstract double ReadDouble();
 
-    public string ReadChars(int count) =>
+    public string ReadUtfBytes(int count) =>
         Encoding.UTF8.GetString(ReadSpan(count));
 
     public string ReadUtfBytes() =>
-        ReadChars(ReadUInt16());
+        ReadUtfBytes(ReadUInt16());
 
     public bool[] ReadFlags()
     {

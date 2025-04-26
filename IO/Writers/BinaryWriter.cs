@@ -19,7 +19,7 @@ public abstract class BinaryWriter
     public int BytesAvailable =>
         Length - Position;
 
-    public BinaryWriter(ushort bufferUpgradeSizeAmount = byte.MaxValue) =>
+    protected BinaryWriter(ushort bufferUpgradeSizeAmount = byte.MaxValue) =>
         _bufferUpgradeSizeAmount = bufferUpgradeSizeAmount;
 
     private void AdjustBufferSizeIfNeeded(int count)
