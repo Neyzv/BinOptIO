@@ -27,7 +27,7 @@ public abstract class BinaryWriter
         if (count <= BytesAvailable)
             return;
 
-        var newBufferSize = _bufferUpgradeSizeAmount * (int)Math.Ceiling(count / (double)_bufferUpgradeSizeAmount);
+        var newBufferSize = Length + _bufferUpgradeSizeAmount * (int)Math.Ceiling(count / (double)_bufferUpgradeSizeAmount);
 
         if ((uint)newBufferSize > Array.MaxLength)
             throw new OutOfMemoryException("The requested operation would exceed the maximum size of an array.");
